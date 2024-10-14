@@ -25,7 +25,7 @@ export class ItemsService {
     return this._HttpClient.get<Item>(`https://localhost:44384/api/Items/${id}`);
   }
 
-  deleteItem(id:string): Observable<Item>{
-    return this._HttpClient.get<Item>(`https://localhost:44384/api/Items/${id}`);
+  deleteItem(id:number): Observable<void>{
+    return this._HttpClient.delete<void>(`https://localhost:44384/api/Items/${id}`);
   }
 }
