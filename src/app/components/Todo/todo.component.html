@@ -1,0 +1,28 @@
+<form  [formGroup]="todoForm" >
+    <label for="task">Task : </label>
+    <input id="task" formControlName="task" type="text" placeholder="Enter todo title" class="m-3">
+    <br>
+    <label for="IsDone">isDone : </label>
+    <input formControlName="isDone" type="checkbox" name="" id="IsDone" class="m-3">
+<br>
+    <button [disabled]="todoForm.invalid" (click)="addItem($event)" class="m-3">Add Item</button>
+</form>
+
+<table class="table w-75 text-center mx-auto py-3">
+    <thead>
+        <th>Task </th>
+        <th>IsDone</th>
+        <th>updata</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of items">
+            <a [routerLink]="['/todoitem', item.id]" >
+                <td>{{item.task}}</td>
+            </a>
+            <td><button  [disabled]="item.isDone" (click)="handleMarkAsDone($event , item)">Masrk As done</button></td>
+            <td><button (click)="updateItem(item)">Updata</button></td>
+            <td><button >Delete</button></td>
+        </tr>
+    </tbody>
+</table>
