@@ -32,6 +32,7 @@ handleMarkAsDone(e:MouseEvent, item: Item)
     });
     this.addItem(this.item);
     this.updateItem(this.item);
+    this.deleteItem(this.item);
   }
   addItem(e: MouseEvent){
     e.preventDefault();
@@ -67,17 +68,14 @@ handleMarkAsDone(e:MouseEvent, item: Item)
     this.todoForm.reset();
   }
 
-  // deleteItem(item: Item): void {
-  //   let {id} = this.route.snapshot.params;
-  //   this._itemsService.deleteItem('id').subscribe({
-  //     next: () => {
-  //       this.items = this.item.filter(id => i.id == item.id); // Remove the item from the list
-  //     },
-  //     error: () => {
-  //       console.error('Error deleting item');
-  //     },
-  //   });
-  // }
+  deleteItem(item: Item): void {
+    console.log(item);
+    this._itemsService.deleteItem(item.id).subscribe({
+      next: () => {
+        this.items = this.items.filter(i => i.id !== i.id); // Remove the item from the list
+      }
+    });
+  }
   updateItem(item: Item): void {
     item.isDone = true;
     let {id} = this.route.snapshot.params;
