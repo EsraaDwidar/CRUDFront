@@ -21,8 +21,8 @@ export class ItemsService {
     return this._HttpClient.post<Item>("https://localhost:44384/api/Items",item);
   }
   
-  updateItem(id:string): Observable<Item>{
-    return this._HttpClient.get<Item>(`https://localhost:44384/api/Items/${id}`);
+  updateItem(id:string, item:object): Observable<Item>{
+    return this._HttpClient.put<Item>(`https://localhost:44384/api/Items/${id}`,item);
   }
 
   deleteItem(id:number): Observable<void>{
