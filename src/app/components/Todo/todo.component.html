@@ -12,7 +12,6 @@
     <thead>
         <th>Task </th>
         <th>IsDone</th>
-        <th>updata</th>
         <th>Delete</th>
     </thead>
     <tbody>
@@ -20,8 +19,7 @@
             <a [routerLink]="['/todoitem', item.id]" >
                 <td>{{item.task}}</td>
             </a>
-            <td><button  [disabled]="item.isDone" (click)="handleMarkAsDone($event , item)">Masrk As done</button></td>
-            <td><button (click)="updateItem(item)">Updata</button></td>
+            <td><button  [disabled]="item.isDone" (click)="handleMarkAsDone(item)">Masrk As done</button></td>
             <td><button (click)="deleteItem(item)>Delete</button></td>
         </tr>
     </tbody>
