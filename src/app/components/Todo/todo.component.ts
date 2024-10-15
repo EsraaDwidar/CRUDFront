@@ -15,10 +15,17 @@ export class TodoComponent {
   item: Item | any;
 
   @Output() itemMarkAsDone = new EventEmitter<string>();
-handleMarkAsDone(e:MouseEvent, item: Item)
+handleMarkAsDone(item: Item)
 {
   item.isDone = true;
   this.itemMarkAsDone.emit(item.task);
+  this._itemsService.updateItem(item.id,item).subscribe({
+    next:(data) => {
+        this.item = data;
+        console.log(item);
+        this.items = this.items.map(t => t.id == item.id ? item : t);
+    },
+  });
 }
 
   ngOnInit(): void {
@@ -31,8 +38,8 @@ handleMarkAsDone(e:MouseEvent, item: Item)
       error:()=>{},
     });
     this.addItem(this.item);
-    this.updateItem(this.item);
     this.deleteItem(this.item);
+    this.handleMarkAsDone(this.item);
   }
   addItem(e: MouseEvent){
     e.preventDefault();
@@ -72,20 +79,8 @@ handleMarkAsDone(e:MouseEvent, item: Item)
     console.log(item);
     this._itemsService.deleteItem(item.id).subscribe({
       next: () => {
-        this.items = this.items.filter(i => i.id !== i.id); // Remove the item from the list
+        this.items = this.items.filter(i => i.id !== i.id); 
       }
-    });
-  }
-  updateItem(item: Item): void {
-    item.isDone = true;
-    let {id} = this.route.snapshot.params;
-    this._itemsService.updateItem('id').subscribe({
-      next: (data) => {
-        this.itemMarkAsDone.emit(data.task);
-      },
-      error: () => {
-        console.error('Error updating item');
-      },
     });
   }
 }
